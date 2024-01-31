@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <h3>Username: <p><a href="{% url 'profile' pk=user.pk %}">{{ user.username }}</a></p></h3>
+    <span><a href="{% url 'logout' %}">Logout</a></span>
+    {% else %}
+    <h3><a href="{% url 'register' %}">Register</a> or <a href="{% url 'login' %}">Login</a></h3>
+    {% endif %}
+</body>
+</html>
