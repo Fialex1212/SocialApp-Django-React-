@@ -5,11 +5,9 @@
     <title>Profile</title>
 </head>
 <body>
-    {% if user.is_authenticated %}
-    <h3>Username: <p><a href="{% url 'profile' pk=user.pk %}">{{ user.username }}</a></p></h3>
-    <span><a href="{% url 'logout' %}">Logout</a></span>
-    {% else %}
-    <h3><a href="{% url 'register' %}">Register</a> or <a href="{% url 'login' %}">Login</a></h3>
+    <h3>Username: <p> <a href="{% url 'profile' user_pk=request.user.pk %}">{{ user.username }}</a></p></h3>
+    {% if request.user.pk == user_pk %}
+        <span><a href="{% url 'logout' %}">Logout</a></span>
     {% endif %}
 </body>
 </html>

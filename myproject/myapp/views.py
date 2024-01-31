@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
+from django.http import Http404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -47,8 +48,12 @@ def logoutPage(request):
 
 
 @login_required(login_url='login')
-def profile(request, pk):
-    return render(request, 'myapp/profile.html')
+def profile(request, user_pk):
+    try:
+        user = get_object_or_404(User, pk=user_pk)
+        return render(request, 'myapp/profile.html', {'user': user, 'user_pk': user_pk})
+    except User.DoesNotExist:
+        return HttpResponse("User does not exist")
 
 
 @login_required(login_url='login')
